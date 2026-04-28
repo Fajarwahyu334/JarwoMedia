@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarwomedia | Toko Komik Terpercaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { 
+            --green-primary: #008a45; 
+            --orange-secondary: #ff9800; 
+            --bg-body: #f4f7f6; 
+            --text-dark: #333; 
+            --star-color: #f1c40f;
+            --footer-bg: #222;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-body); color: var(--text-dark); margin: 0; }
+
+        .promo-banner { background: #ff9800; color: white; text-align: center; padding: 10px; font-weight: bold; animation: blink 2s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .navbar { background: #fff; padding: 0 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--green-primary); position: sticky; top:0; z-index: 100; height: 70px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .nav-brand { font-size: 24px; font-weight: 800; color: var(--green-primary); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 14px; transition: 0.3s; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .nav-links a:hover { color: var(--green-primary); }
+        
+        .cart-trigger { position: relative; }
+        #cart-count { background: #e74c3c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; position: absolute; top: -10px; right: -10px; }
+
+        .hero { height: 350px; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; }
+
+        .main-wrapper { max-width: 1300px; margin: 40px auto; display: grid; grid-template-columns: 1fr 320px; gap: 40px; padding: 0 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+
+        .card { background: #fff; border-radius: 8px; border: 1px solid #ddd; padding: 15px; transition: 0.3s; position: relative; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 260px; object-fit: cover; border-radius: 4px; background: #eee; }
+        .badge-best { position: absolute; top: 10px; left: 10px; background: #e74c3c; color: white; padding: 5px 10px; font-size: 11px; font-weight: bold; border-radius: 4px; z-index: 10; }
+        .rating { color: var(--star-color); font-size: 0.8rem; margin: 8px 0 2px 0; }
+        .btn-add { background: var(--green-primary); color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+
+        .sidebar-container { background: #fff; padding: 25px; border-radius: 8px; border: 2px solid var(--green-primary); position: sticky; top: 100px; height: fit-content; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; font-size: 0.85rem; }
+
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; justify-content:center; align-items:center; }
+        .modal-content { background:white; padding:30px; width:90%; max-width:350px; border-radius:12px; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
+        
+        .receipt { font-family: 'Courier New', Courier, monospace; color: #333; background: #fff; padding: 10px; border: 1px solid #ddd; }
+        .receipt-header { text-align: center; border-bottom: 1px dashed #333; margin-bottom: 10px; padding-bottom: 10px; }
+
+        footer { background: var(--footer-bg); color: #ccc; padding: 50px 10% 20px; margin-top: 50px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-section h4 { color: white; margin-bottom: 20px; border-left: 4px solid var(--green-primary); padding-left: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="promo-banner">🔥 GRATIS ONGKIR SE-BEKASI KHUSUS HARI INI! 🔥</div>
+
+<nav class="navbar">
+    <a href="#" class="nav-brand">JARWOMEDIA</a>
+    <div class="nav-links">
+        <a href="#"><i class="fa fa-home"></i> Beranda</a>
+        <a onclick="alert('Fitur member segera hadir!')"><i class="fa fa-user-circle"></i> Akun</a>
+        <a href="#target-keranjang" class="cart-trigger">
+            <i class="fa fa-shopping-cart" style="font-size: 20px; color: var(--green-primary);"></i>
+            <span id="cart-count">0</span>
+        </a>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>Selamat Datang di Jarwomedia</h1>
+    <p>Koleksi Komik Terlengkap di Bekasi Utara</p>
+</div>
+
+<div class="main-wrapper">
+    <section class="product-grid">
+        <div class="card">
+            <div class="badge-best">HOT</div>
+            <img src="bluebox.jpg" alt="Blue Box">
+            <div style="font-weight:700; margin-top: 10px;">Blue Box</div>
+            <div class="rating"><i class="fa fa-star"></i> 5.0</div>
+            <select id="v1">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 45.000</div>
+            <button class="btn-add" onclick="tambah('Blue Box', 45000, 'v1')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <img src="slamdunk.jpg" alt="Slam Dunk">
+            <div style="font-weight:700; margin-top: 10px;">Slam Dunk</div>
+            <div class="rating"><i class="fa fa-star"></i> 4.9</div>
+            <select id="v2">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 60.000</div>
+            <button class="btn-add" onclick="tambah('Slam Dunk', 60000, 'v2')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <div class="badge-best">TOP</div>
+            <img src="haikyu,jpg.jpg" alt="Haikyu">
+            <div style="font-weight:700; margin-top: 10px;">Haikyu!!</div>
+            <div class="rating"><i class="fa fa-star"></i> 5.0</div>
+            <select id="v3">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 50.000</div>
+            <button class="btn-add" onclick="tambah('Haikyu!!', 50000, 'v3')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <img src="naruto.jpg" alt="Naruto">
+            <div style="font-weight:700; margin-top: 10px;">Naruto</div>
+            <div class="rating"><i class="fa fa-star"></i> 4.8</div>
+            <select id="v4">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 40.000</div>
+            <button class="btn-add" onclick="tambah('Naruto', 40000, 'v4')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <img src="jjk.jpg" alt="JJK">
+            <div style="font-weight:700; margin-top: 10px;">Jujutsu Kaisen</div>
+            <div class="rating"><i class="fa fa-star"></i> 4.9</div>
+            <select id="v5">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 45.000</div>
+            <button class="btn-add" onclick="tambah('Jujutsu Kaisen', 45000, 'v5')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <img src="sakamoto.jpg" alt="Sakamoto Days">
+            <div style="font-weight:700; margin-top: 10px;">Sakamoto Days</div>
+            <div class="rating"><i class="fa fa-star"></i> 4.9</div>
+            <select id="v6">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 45.000</div>
+            <button class="btn-add" onclick="tambah('Sakamoto Days', 45000, 'v6')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <img src="bleach.jpg" alt="Bleach">
+            <div style="font-weight:700; margin-top: 10px;">Bleach</div>
+            <div class="rating"><i class="fa fa-star"></i> 4.7</div>
+            <select id="v7">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 40.000</div>
+            <button class="btn-add" onclick="tambah('Bleach', 40000, 'v7')">TAMBAH</button>
+        </div>
+
+        <div class="card">
+            <div class="badge-best">NEW</div>
+            <img src="spy x family.jpg" alt="Spy x family">
+            <div style="font-weight:700; margin-top: 10px;">Spy x Family</div>
+            <div class="rating"><i class="fa fa-star"></i> 5.0</div>
+            <select id="v8">
+                <option>Vol 1</option><option>Vol 2</option><option>Vol 3</option><option>Vol 4</option><option>Vol 5</option>
+            </select>
+            <div style="color:var(--green-primary); margin-top:10px; font-weight: bold;">Rp 50.000</div>
+            <button class="btn-add" onclick="tambah('Spy x Family', 50000, 'v8')">TAMBAH</button>
+        </div>
+    </section>
+
+    <aside class="sidebar-container" id="target-keranjang">
+        <h3><i class="fa fa-shopping-basket"></i> Keranjang</h3>
+        <div id="cart-items"><p style="color:#888;">Belum ada pesanan...</p></div>
+        <hr>
+        <div style="font-size: 1.2rem; font-weight:bold;">Total: <span id="total-val">Rp 0</span></div>
+        <button class="btn-add" style="background:var(--orange-secondary); margin-top:20px;" onclick="bukaCheckout()">BAYAR SEKARANG</button>
+    </aside>
+</div>
+
+<div id="checkout-modal" class="modal">
+    <div class="modal-content">
+        <h3>Data Pengiriman</h3>
+        <input type="text" id="nama-penerima" placeholder="Nama Lengkap">
+        <textarea id="alamat-lengkap" placeholder="Alamat Pengiriman Lengkap"></textarea>
+        <button class="btn-add" onclick="prosesBayar()">KONFIRMASI & CETAK STRUK</button>
+        <button onclick="tutupModal('checkout-modal')" style="width:100%; border:none; background:none; color:red; cursor:pointer; margin-top:10px;">Batal</button>
+    </div>
+</div>
+
+<div id="struk-modal" class="modal">
+    <div class="modal-content">
+        <div class="receipt">
+            <div class="receipt-header">
+                <h3 style="margin:0; color:var(--green-primary)">JARWOMEDIA</h3>
+                <small id="tgl-struk"></small>
+            </div>
+            <div id="list-struk"></div>
+            <hr style="border: 0.5px dashed #333">
+            <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                <span>TOTAL</span>
+                <span id="total-struk"></span>
+            </div>
+            <p style="text-align:center; font-size:10px; margin-top:15px;">Terima kasih telah berbelanja!</p>
+        </div>
+        <button class="btn-add" onclick="location.reload()">BELANJA LAGI</button>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Jarwomedia</h4>
+            <p>Toko komik retail terpercaya di Bekasi. Kami menjamin keaslian dan kualitas komik kami.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Alamat</h4>
+            <p><i class="fa fa-map-marker-alt"></i> Jl. Raya Perjuangan No. 123, Bekasi Utara.</p>
+            <p><i class="fa fa-phone"></i> (021) 8888-9999</p>
+        </div>
+        <div class="footer-section">
+            <h4>Jam Operasional</h4>
+            <p><b>Senin - Jumat:</b> 08.00 - 21.00 WIB</p>
+            <p><b>Sabtu - Minggu:</b> 09.00 - 18.00 WIB</p>
+            <p style="font-size: 11px; color: var(--orange-secondary);">*Tutup pada hari libur nasional</p>
+        </div>
+    </div>
+    <div style="text-align:center; padding-top:20px; border-top:1px solid #444; margin-top:20px; font-size:12px;">
+        &copy; 2026 PT Jarwo Media Literasi. Bekasi, Indonesia.
+    </div>
+</footer>
+
+<script>
+    let keranjang = [];
+
+    function tambah(nama, harga, idSel) {
+        const vol = document.getElementById(idSel).value;
+        keranjang.push({ nama, harga, vol, id: Date.now() });
+        updateKeranjang();
+    }
+
+    function hapusItem(id) {
+        keranjang = keranjang.filter(i => i.id !== id);
+        updateKeranjang();
+    }
+
+    function updateKeranjang() {
+        const container = document.getElementById('cart-items');
+        let total = 0;
+        if (keranjang.length === 0) {
+            container.innerHTML = '<p style="color:#888;">Belum ada pesanan...</p>';
+        } else {
+            container.innerHTML = "";
+            keranjang.forEach(i => {
+                total += i.harga;
+                container.innerHTML += `<div class="cart-item"><span><b>${i.nama}</b> (${i.vol})</span><button style="border:none; background:none; color:red; cursor:pointer;" onclick="hapusItem(${i.id})">&times;</button></div>`;
+            });
+        }
+        document.getElementById('cart-count').innerText = keranjang.length;
+        document.getElementById('total-val').innerText = 'Rp ' + total.toLocaleString();
+    }
+
+    function bukaCheckout() {
+        if(keranjang.length === 0) return alert("Pilih komik dulu Bro!");
+        document.getElementById('checkout-modal').style.display = 'flex';
+    }
+
+    function prosesBayar() {
+        const nama = document.getElementById('nama-penerima').value;
+        if(!nama) return alert("Isi nama dulu!");
+        
+        document.getElementById('tgl-struk').innerText = new Date().toLocaleString();
+        let list = document.getElementById('list-struk');
+        list.innerHTML = "";
+        let total = 0;
+        keranjang.forEach(i => {
+            total += i.harga;
+            list.innerHTML += `<div style="display:flex; justify-content:space-between; font-size:12px; margin:5px 0;"><span>${i.nama} (${i.vol})</span><span>${i.harga.toLocaleString()}</span></div>`;
+        });
+        document.getElementById('total-struk').innerText = "Rp " + total.toLocaleString();
+        
+        document.getElementById('checkout-modal').style.display = 'none';
+        document.getElementById('struk-modal').style.display = 'flex';
+    }
+
+    function tutupModal(id) { document.getElementById(id).style.display = 'none'; }
+</script>
+
+</body>
+</html>
